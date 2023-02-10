@@ -1,0 +1,371 @@
+openapi: 3.0.3
+
+info:
+  title: IPL Tracking - Microservice API
+  description: API description for Tracking microservice.
+  version: 1.0.0
+
+tags:
+  - name: Driver
+    description: Driver definition
+
+servers:
+  - url: http://localhost:8080/tracking
+    description: Localhost - BT3 Dev
+
+# ======= Endpoints =======
+
+paths:
+  /drivers:
+    post:
+      tags:
+        - Driver
+      summary: Create new Driver
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is usedto create a new Driver on System.
+      operationId: createDriver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDriverRequest'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDriverResponse'
+        400:
+          description: Parameters missing in request
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a driver registered with same name or mail
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - Driver
+      summary: Get Drivers list
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is used to retrieve a list of Drivers.
+      operationId: listDrivers
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDriversResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+  /drivers/{driverId}:
+    patch:
+      tags:
+        - Driver
+      summary: Update Driver's attributes
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is used to update some of the Driver's attributes.
+      operationId: updateDriver
+      parameters:
+        - name: driverId
+          in: path
+          schema:
+            $ref: '../commons.yml#/components/schemas/UUID'
+          required: true
+          description: Unique identifier of the Driver in the database
+          example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDriverRequest'
+        required: true
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Parameters missing in request or request is malformed. For example, the mail is not in the correct format.
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a Driver registered with same name or email
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - Driver
+      summary: Get a single Driver's info
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is used to retrieve the details of a specific device.
+      operationId: getDriver
+      parameters:
+        - name: driverId
+          in: path
+          schema:
+            $ref: '../commons.yml#/components/schemas/UUID'
+          required: true
+          description: Unique identifier of the Driver in the database
+          example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDriverResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - Driver
+      summary: Delete Driver
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is delete a Driver.
+      operationId: deleteDriver
+      parameters:
+        - name: driverId
+          in: path
+          schema:
+            $ref: '../commons.yml#/components/schemas/UUID'
+          required: true
+          description: Unique identifier of the Driver in the database
+          example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        204:
+          description: No Content
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        409:
+          description: Delete a driver that has vehicles is not allowed.
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    
+# ======= DTOs =======
+
+### general comment - each field needs to be described also, what it's for, what format is expected
+
+
+components:
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+
+  schemas:
+
+    GetDriverResponse:
+      type: object
+      properties:
+        driverId:
+          description: unique identifier of the Driver in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+        name:
+          type: string
+          description: Complete Driver name
+          example: Foo bar
+        customerId:
+          description: unique identifier of the Customer in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+        phone:
+          type: string
+          description: Telephone number
+          example: +351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required: [ driverId, name, phone, mail ]
+
+    CreateDriverRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Driver name
+          example: Foo bar
+        customerId:
+          description: unique identifier of the Customer in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+        phone:
+          type: string
+          description: Telephone number
+          example: +351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required: [ name, phone, mail ]
+
+    CreateDriverResponse:
+      type: object
+      properties:
+        driverId:
+          description: unique identifier of the Driver in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+      required: [ driverId ]
+   
+
+    ListDriversResponse:
+      type: object
+      description: generic paged response
+      properties:
+        content:
+          type: array
+          description: list of paged items
+          items:
+            $ref: '#/components/schemas/GetDriverResponse'
+        totalResults:
+          type: integer
+          format: int64
+          description: total number of records
+          example: 50
+      required: [ content, totalResults ]
+    
+    UpdateDriverRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Driver name
+          example: Foo bar
+        customerId:
+          description: unique identifier of the Customer in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+        phone:
+          type: string
+          description: Telephone number
+          example: +351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+

@@ -1,0 +1,1204 @@
+{
+	"info": {
+		"_postman_id": "79827ba9-4769-4a63-90c0-cf22351a96aa",
+		"name": "XPTO Tracking - Customer",
+		"description": "API description for Tracking microservice.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12992487"
+	},
+	"item": [
+		{
+			"name": "Get Customers list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				},
+				"description": "This operation is used to retrieve a list of Customers."
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"totalResults\": 50,\n  \"content\": [\n    {\n      \"mail\": \"foo@bar.com\",\n      \"phone\": \"351912000111\",\n      \"customerId\": \"0af401df-7d7a-1f36-817d-7b0a058d0003\",\n      \"name\": \"Foo bar\"\n    },\n    {\n      \"mail\": \"foo@bar.com\",\n      \"phone\": \"351912000111\",\n      \"customerId\": \"0af401df-7d7a-1f36-817d-7b0a058d0003\",\n      \"name\": \"Foo bar\"\n    }\n  ]\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unexpected errors not mapped to status codes mentioned above",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create new Customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mail\": \"7foo11@bar.com\",\n  \"name\": \"7Foo11 bar\",\n  \"phone\": \"735111912000111\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				},
+				"description": "This operation is usedto create a new Customer on System."
+			},
+			"response": [
+				{
+					"name": "Created",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mail\": \"foo@bar.com\",\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"customerId\": \"0af401df-7d7a-1f36-817d-7b0a058d0003\"\n}"
+				},
+				{
+					"name": "Parameters missing in request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mail\": \"foo@bar.com\",\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mail\": \"foo@bar.com\",\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mail\": \"foo@bar.com\",\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "There is already a customer registered with same name or mail",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mail\": \"foo@bar.com\",\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unexpected errors not mapped to status codes mentioned above",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"mail\": \"foo@bar.com\",\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get a single Customer's info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "a8a8d4d8-9e33-4862-af3b-4876040b6bae",
+							"description": "(Required) Unique identifier of the Customer in the database"
+						}
+					]
+				},
+				"description": "This operation is used to retrieve the details of a specific device."
+			},
+			"response": [
+				{
+					"name": "Ok",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"mail\": \"foo@bar.com\",\n  \"phone\": \"351912000111\",\n  \"customerId\": \"0af401df-7d7a-1f36-817d-7b0a058d0003\",\n  \"name\": \"Foo bar\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Resource not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unexpected errors not mapped to status codes mentioned above",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Customer",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "a8a8d4d8-9e33-4862-af3b-4876040b6bae",
+							"description": "(Required) Unique identifier of the Customer in the database"
+						}
+					]
+				},
+				"description": "This operation is delete a Customer."
+			},
+			"response": [
+				{
+					"name": "No Content",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Resource not found",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Delete a customer that has vehicles is not allowed.",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unexpected errors not mapped to status codes mentioned above",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update Customer's attributes",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"mail\": \"foo11@bar1.com\",\n  \"name\": \"Foo11 bar1\",\n  \"phone\": \"3511191200011122\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "a8a8d4d8-9e33-4862-af3b-4876040b6bae"
+						}
+					]
+				},
+				"description": "This operation is used to update some of the Customer's attributes."
+			},
+			"response": [
+				{
+					"name": "No Content",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "Parameters missing in request or request is malformed. For example, the mail is not in the correct format.",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unauthorized",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Forbidden",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Resource not found",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "There is already a Customer registered with same name or email",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				},
+				{
+					"name": "Unexpected errors not mapped to status codes mentioned above",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Foo bar\",\n  \"phone\": \"351912000111\",\n  \"mail\": \"foo@bar.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/customers/:customerId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"customers",
+								":customerId"
+							],
+							"variable": [
+								{
+									"key": "customerId",
+									"value": "0af401df-7d7a-1f36-817d-7b0a058d0003",
+									"description": "(Required) Unique identifier of the Customer in the database"
+								}
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"code\": \"XYZ0001\",\n  \"type\": \"UNKNOWN\",\n  \"message\": \"Unauthorized\",\n  \"details\": \"Parameter X has invalid value\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080/tracking",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,698 @@
+openapi: 3.0.3
+info:
+  title: IPL Tracking - Microservice API
+  description: API description for Tracking microservice.
+  version: 1.0.0
+tags:
+- name: Commons
+  description: Commons definition
+servers:
+- url: http://localhost:8080/tracking
+  description: Localhost - BT3 Dev
+paths:
+  /customers:
+    post:
+      tags:
+      - Customer
+      summary: Create new Customer
+      description: This operation is usedto create a new Customer on System.
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerResponse'
+        400:
+          description: Parameters missing in request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a customer registered with same name or mail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Customer
+      summary: Get Customers list
+      description: This operation is used to retrieve a list of Customers.
+      operationId: listCustomers
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCustomersResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /customers/{customerId}:
+    patch:
+      tags:
+      - Customer
+      summary: Update Customer's attributes
+      description: This operation is used to update some of the Customer's attributes.
+      operationId: updateCustomer
+      parameters:
+      - name: customerId
+        in: path
+        schema:
+          $ref: '#/components/schemas/UUID'
+        required: true
+        description: Unique identifier of the Customer in the database
+        example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerRequest'
+        required: true
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Parameters missing in request or request is malformed. For
+            example, the mail is not in the correct format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a Customer registered with same name or email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Customer
+      summary: Get a single Customer's info
+      description: This operation is used to retrieve the details of a specific device.
+      operationId: getCustomer
+      parameters:
+      - name: customerId
+        in: path
+        schema:
+          $ref: '#/components/schemas/UUID'
+        required: true
+        description: Unique identifier of the Customer in the database
+        example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomerResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Customer
+      summary: Delete Customer
+      description: This operation is delete a Customer.
+      operationId: deleteCustomer
+      parameters:
+      - name: customerId
+        in: path
+        schema:
+          $ref: '#/components/schemas/UUID'
+        required: true
+        description: Unique identifier of the Customer in the database
+        example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        204:
+          description: No Content
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: Delete a customer that has vehicles is not allowed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /drivers:
+    post:
+      tags:
+      - Driver
+      summary: Create new Driver
+      description: This operation is usedto create a new Driver on System.
+      operationId: createDriver
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDriverRequest'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateDriverResponse'
+        400:
+          description: Parameters missing in request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a driver registered with same name or mail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Driver
+      summary: Get Drivers list
+      description: This operation is used to retrieve a list of Drivers.
+      operationId: listDrivers
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDriversResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /drivers/{driverId}:
+    patch:
+      tags:
+      - Driver
+      summary: Update Driver's attributes
+      description: This operation is used to update some of the Driver's attributes.
+      operationId: updateDriver
+      parameters:
+      - name: driverId
+        in: path
+        schema:
+          $ref: '#/components/schemas/UUID'
+        required: true
+        description: Unique identifier of the Driver in the database
+        example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDriverRequest'
+        required: true
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Parameters missing in request or request is malformed. For
+            example, the mail is not in the correct format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a Driver registered with same name or email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    get:
+      tags:
+      - Driver
+      summary: Get a single Driver's info
+      description: This operation is used to retrieve the details of a specific device.
+      operationId: getDriver
+      parameters:
+      - name: driverId
+        in: path
+        schema:
+          $ref: '#/components/schemas/UUID'
+        required: true
+        description: Unique identifier of the Driver in the database
+        example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetDriverResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      tags:
+      - Driver
+      summary: Delete Driver
+      description: This operation is delete a Driver.
+      operationId: deleteDriver
+      parameters:
+      - name: driverId
+        in: path
+        schema:
+          $ref: '#/components/schemas/UUID'
+        required: true
+        description: Unique identifier of the Driver in the database
+        example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        204:
+          description: No Content
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        409:
+          description: Delete a driver that has vehicles is not allowed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  schemas:
+    GetCustomerResponse:
+      type: object
+      properties:
+        customerId:
+          $ref: '#/components/schemas/UUID'
+        name:
+          type: string
+          description: Complete Customer name
+          example: Foo bar
+        phone:
+          type: string
+          description: Telephone number
+          example: 351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required:
+      - customerId
+      - name
+      - phone
+      - mail
+    CreateCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Customer name
+          example: Foo bar
+        phone:
+          type: string
+          description: Telephone number
+          example: 351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required:
+      - name
+      - phone
+      - mail
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customerId:
+          $ref: '#/components/schemas/UUID'
+      required:
+      - customerId
+    ListCustomersResponse:
+      type: object
+      description: generic paged response
+      properties:
+        content:
+          type: array
+          description: list of paged items
+          items:
+            $ref: '#/components/schemas/GetCustomerResponse'
+        totalResults:
+          type: integer
+          format: int64
+          description: total number of records
+          example: 50
+      required:
+      - content
+      - totalResults
+    UpdateCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Customer name
+          example: Foo bar
+        phone:
+          type: string
+          description: Telephone number
+          example: 351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+    GetDriverResponse:
+      type: object
+      properties:
+        driverId:
+          $ref: '#/components/schemas/UUID'
+        name:
+          type: string
+          description: Complete Driver name
+          example: Foo bar
+        customerId:
+          $ref: '#/components/schemas/UUID'
+        phone:
+          type: string
+          description: Telephone number
+          example: 351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required:
+      - driverId
+      - name
+      - phone
+      - mail
+    CreateDriverRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Driver name
+          example: Foo bar
+        customerId:
+          $ref: '#/components/schemas/UUID'
+        phone:
+          type: string
+          description: Telephone number
+          example: 351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required:
+      - name
+      - phone
+      - mail
+    CreateDriverResponse:
+      type: object
+      properties:
+        driverId:
+          $ref: '#/components/schemas/UUID'
+      required:
+      - driverId
+    ListDriversResponse:
+      type: object
+      description: generic paged response
+      properties:
+        content:
+          type: array
+          description: list of paged items
+          items:
+            $ref: '#/components/schemas/GetDriverResponse'
+        totalResults:
+          type: integer
+          format: int64
+          description: total number of records
+          example: 50
+      required:
+      - content
+      - totalResults
+    UpdateDriverRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Driver name
+          example: Foo bar
+        customerId:
+          $ref: '#/components/schemas/UUID'
+        phone:
+          type: string
+          description: Telephone number
+          example: 351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+    EnumSensorType:
+      description: type of Sensor
+      type: string
+      enum:
+      - RPM
+      - ODOMETER
+      - SPEED
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+          description: Application error code
+          example: XYZ0001
+        type:
+          $ref: '#/components/schemas/ErrorTypeEnum'
+        message:
+          type: string
+          description: Short error explanation
+          example: Unauthorized
+        details:
+          type: string
+          description: Short error detail
+          example: Parameter X has invalid value
+      required:
+      - errorCode
+      - errorType
+      - errorMessage
+    ErrorTypeEnum:
+      description: Error Type
+      type: string
+      enum:
+      - PERSISTENCE
+      - BUSINESS
+      - COMMUNICATION
+      - UNKNOWN
+    UUID:
+      type: string
+      pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+      example: 0af401df-7d7a-1f36-817d-7b0a058d0003

@@ -1,0 +1,361 @@
+openapi: 3.0.3
+
+info:
+  title: IPL Tracking - Microservice API
+  description: API description for Tracking microservice.
+  version: 1.0.0
+
+tags:
+  - name: Customer
+    description: Customer definition
+
+servers:
+  - url: http://localhost:8080/tracking
+    description: Localhost - BT3 Dev
+
+# ======= Endpoints =======
+
+paths:
+  /customers:
+    post:
+      tags:
+        - Customer
+      summary: Create new Customer
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is usedto create a new Customer on System.
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+        required: true
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerResponse'
+        400:
+          description: Parameters missing in request
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a customer registered with same name or mail
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - Customer
+      summary: Get Customers list
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is used to retrieve a list of Customers.
+      operationId: listCustomers
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCustomersResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+  /customers/{customerId}:
+    patch:
+      tags:
+        - Customer
+      summary: Update Customer's attributes
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is used to update some of the Customer's attributes.
+      operationId: updateCustomer
+      parameters:
+        - name: customerId
+          in: path
+          schema:
+            $ref: '../commons.yml#/components/schemas/UUID'
+          required: true
+          description: Unique identifier of the Customer in the database
+          example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerRequest'
+        required: true
+      responses:
+        204:
+          description: No Content
+        400:
+          description: Parameters missing in request or request is malformed. For example, the mail is not in the correct format.
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        409:
+          description: There is already a Customer registered with same name or email
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    get:
+      tags:
+        - Customer
+      summary: Get a single Customer's info
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is used to retrieve the details of a specific device.
+      operationId: getCustomer
+      parameters:
+        - name: customerId
+          in: path
+          schema:
+            $ref: '../commons.yml#/components/schemas/UUID'
+          required: true
+          description: Unique identifier of the Customer in the database
+          example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCustomerResponse'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    delete:
+      tags:
+        - Customer
+      summary: Delete Customer
+      #security:
+      #  - basicAuth: [ ]
+      description: This operation is delete a Customer.
+      operationId: deleteCustomer
+      parameters:
+        - name: customerId
+          in: path
+          schema:
+            $ref: '../commons.yml#/components/schemas/UUID'
+          required: true
+          description: Unique identifier of the Customer in the database
+          example: 0af401df-7d7a-1f36-817d-7b0a058d0003
+      responses:
+        204:
+          description: No Content
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        409:
+          description: Delete a customer that has vehicles is not allowed.
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+        500:
+          description: Unexpected errors not mapped to status codes mentioned above
+          content:
+            application/json:
+              schema:
+                $ref: '../commons.yml#/components/schemas/ErrorResponse'
+
+    
+# ======= DTOs =======
+
+### general comment - each field needs to be described also, what it's for, what format is expected
+
+
+components:
+
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+
+  schemas:
+
+    GetCustomerResponse:
+      type: object
+      properties:
+        customerId:
+          description: unique identifier of the Customer in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+        name:
+          type: string
+          description: Complete Customer name
+          example: Foo bar
+        phone:
+          type: string
+          description: Telephone number
+          example: +351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required: [ customerId, name, phone, mail ]
+
+    CreateCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Customer name
+          example: Foo bar
+        phone:
+          type: string
+          description: Telephone number
+          example: +351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com
+      required: [ name, phone, mail ]
+
+    CreateCustomerResponse:
+      type: object
+      properties:
+        customerId:
+          description: unique identifier of the Customer in the database
+          $ref: '../commons.yml#/components/schemas/UUID'
+      required: [ customerId ]
+   
+
+    ListCustomersResponse:
+      type: object
+      description: generic paged response
+      properties:
+        content:
+          type: array
+          description: list of paged items
+          items:
+            $ref: '#/components/schemas/GetCustomerResponse'
+        totalResults:
+          type: integer
+          format: int64
+          description: total number of records
+          example: 50
+      required: [ content, totalResults ]
+    
+    UpdateCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Complete Customer name
+          example: Foo bar
+        phone:
+          type: string
+          description: Telephone number
+          example: +351912000111
+        mail:
+          type: string
+          format: email
+          description: E-mail address
+          example: foo@bar.com

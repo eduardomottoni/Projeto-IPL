@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "e2f56b6d-a381-4c60-8784-a17950b019a9",
+		"name": "Messaging",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12992487"
+	},
+	"item": [
+		{
+			"name": "Send notification",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://cfml4goexternal.ddns.net:8888/tonnie/notify/message",
+					"protocol": "http",
+					"host": [
+						"cfml4goexternal",
+						"ddns",
+						"net"
+					],
+					"port": "8888",
+					"path": [
+						"tonnie",
+						"notify",
+						"message"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Send message",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://cfml4goexternal.ddns.net:8888/tonnie/send/mensagem",
+					"protocol": "http",
+					"host": [
+						"cfml4goexternal",
+						"ddns",
+						"net"
+					],
+					"port": "8888",
+					"path": [
+						"tonnie",
+						"send",
+						"mensagem"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
